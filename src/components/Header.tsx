@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Header: React.FC = () => {
   const { darkMode, toggleDarkMode } = useTheme();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -17,14 +18,54 @@ const Header: React.FC = () => {
     },
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: -20 },
-    visible: { opacity: 1, y: 0 },
+  const mobileMenuVariants = {
+    closed: { opacity: 0, x: "100%" },
+    open: { opacity: 1, x: 0 },
   };
+
+  const NavLinks = () => (
+    <>
+      <Link
+        to="/"
+        className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+        onClick={() => setIsMobileMenuOpen(false)}
+      >
+        O meni
+      </Link>
+      <Link
+        to="/experience"
+        className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+        onClick={() => setIsMobileMenuOpen(false)}
+      >
+        Iskustvo
+      </Link>
+      <Link
+        to="/skills"
+        className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+        onClick={() => setIsMobileMenuOpen(false)}
+      >
+        Vještine
+      </Link>
+      <Link
+        to="/volunteering"
+        className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+        onClick={() => setIsMobileMenuOpen(false)}
+      >
+        Volontiranje
+      </Link>
+      <Link
+        to="/contact"
+        className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+        onClick={() => setIsMobileMenuOpen(false)}
+      >
+        Kontakt
+      </Link>
+    </>
+  );
 
   return (
     <motion.header
-      className="bg-white dark:bg-gray-800 shadow-md transition-colors duration-200"
+      className="bg-white dark:bg-gray-800 shadow-md transition-colors duration-200 fixed top-0 left-0 right-0 z-50"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
@@ -46,47 +87,38 @@ const Header: React.FC = () => {
               initial="hidden"
               animate="visible"
             >
-              <motion.div variants={itemVariants}>
-                <Link
-                  to="/"
-                  className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                >
-                  O meni
-                </Link>
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <Link
-                  to="/experience"
-                  className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                >
-                  Iskustvo
-                </Link>
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <Link
-                  to="/skills"
-                  className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                >
-                  Vještine
-                </Link>
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <Link
-                  to="/volunteering"
-                  className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                >
-                  Volontiranje
-                </Link>
-              </motion.div>
-              <motion.div variants={itemVariants}>
-                <Link
-                  to="/contact"
-                  className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-                >
-                  Kontakt
-                </Link>
-              </motion.div>
+              <NavLinks />
             </motion.nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              <svg
+                className="w-6 h-6 text-gray-700 dark:text-gray-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
 
             <motion.button
               onClick={toggleDarkMode}
@@ -104,7 +136,6 @@ const Header: React.FC = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     strokeLinecap="round"
@@ -119,7 +150,6 @@ const Header: React.FC = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     strokeLinecap="round"
@@ -133,6 +163,24 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="md:hidden fixed inset-0 bg-white dark:bg-gray-800 z-40"
+            variants={mobileMenuVariants}
+            initial="closed"
+            animate="open"
+            exit="closed"
+            transition={{ type: "tween", duration: 0.3 }}
+          >
+            <div className="flex flex-col items-center space-y-8 pt-20 text-lg">
+              <NavLinks />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 };
