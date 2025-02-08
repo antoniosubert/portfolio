@@ -3,7 +3,7 @@ import { FaGithub, FaEnvelope, FaPhone } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-white dark:bg-gray-800 shadow-md transition-colors duration-200 fixed bottom-0 left-0 right-0 z-40">
+    <footer className="bg-white dark:bg-gray-800 shadow-md transition-colors duration-200 md:fixed md:bottom-0 md:left-0 md:right-0 md:z-40">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="text-gray-600 dark:text-gray-300 mb-4 md:mb-0">

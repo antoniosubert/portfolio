@@ -65,7 +65,7 @@ const Header: React.FC = () => {
 
   return (
     <motion.header
-      className="bg-white dark:bg-gray-800 shadow-md transition-colors duration-200 fixed top-0 left-0 right-0 z-50"
+      className="bg-white dark:bg-gray-800 shadow-md transition-colors duration-200 md:fixed md:top-0 md:left-0 md:right-0 md:z-50"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100 }}
