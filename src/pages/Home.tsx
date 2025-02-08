@@ -115,7 +115,7 @@ const Home: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <FaPhone className="text-gray-500" />
-                <span>(+385) 993513202</span>
+                <span>+385993513202</span>
               </div>
             </div>
           </motion.div>

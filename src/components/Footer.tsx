@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
               <FaEnvelope size={24} />
             </a>
             <a
-              href="tel:+38599351202"
+              href="tel:+385993513202"
               className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
               aria-label="Telefon"
             >
